@@ -1,0 +1,57 @@
+package java2;
+
+import java.util.Scanner;
+
+public class GradeCalculator {
+	public static void main(String[] args) {
+
+        // Create a Scanner object to read user input
+        Scanner inputScanner = new Scanner(System.in);
+
+        // Prompt the user to enter the number of courses
+        System.out.println("Enter the number of courses: ");
+        int totalCourses = inputScanner.nextInt(); // Get the number of courses from the user
+
+        // Create an array to store the marks obtained in each course
+        int[] courseMarks = new int[totalCourses]; // Array to hold the marks for each course
+
+        // Prompt the user to enter the marks obtained in each course
+        for (int i = 0; i < totalCourses; i++) {
+            System.out.println("Enter the marks scored out of 100 in course " + (i + 1) + ": ");
+            courseMarks[i] = inputScanner.nextInt(); // Store each course's marks in the array
+        }
+
+        // Calculate the total marks by summing all the individual marks
+        int overallMarks = 0;
+        for (int marks : courseMarks) {
+            overallMarks += marks; // Add each course's mark to the overallMarks
+        }
+
+        // Calculate the average percentage
+        float avgPercentage = (float) overallMarks / totalCourses; // Average of all the marks
+
+        // Assign a grade based on the average percentage
+        String studentGrade;
+        if (avgPercentage >= 90) {
+            studentGrade = "A"; // Grade A for average percentage >= 90
+        } else if (avgPercentage >= 80) {
+            studentGrade = "B"; // Grade B for average percentage >= 80
+        } else if (avgPercentage >= 70) {
+            studentGrade = "C"; // Grade C for average percentage >= 70
+        } else if (avgPercentage >= 60) {
+            studentGrade = "D"; // Grade D for average percentage >= 60
+        } else {
+            studentGrade = "F"; // Grade F for average percentage < 60
+        }
+
+        // Display the results
+        System.out.println("Total marks: " + overallMarks + "/" + (totalCourses * 100)); // Total marks and max possible marks
+        System.out.println("Average percentage: " + avgPercentage); // Display the average percentage
+        System.out.println("Grade: " + studentGrade); // Display the grade based on the average percentage
+
+        // Close the Scanner object to prevent resource leaks
+        inputScanner.close();
+    }
+}
+
+
