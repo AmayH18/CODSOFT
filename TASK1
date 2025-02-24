@@ -1,0 +1,131 @@
+package java1;
+
+import java.io.IOException;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Numbersgame {
+    public static void main(String args[]) throws IOException {
+        // Scanner object to take user input
+        Scanner obj = new Scanner(System.in);
+        // Random object to generate random numbers
+        Random rand = new Random();
+
+        // Welcome message and game instructions
+        System.out.println("\nWelcome to the Number Game.\nThe System will generate a random number between 1-100.");
+        System.out.println(
+                "You have to guess the random number.\nYour score will be the number of attempts you took to guess the number.\n");
+        
+        // Ask user to enter number of rounds to play
+        System.out.print("Enter the Number of Rounds (between 1-3) you want to play the Game : ");
+        int rounds = obj.nextInt();
+
+        // Loop to execute each round
+        for (int i = 1; i <= rounds; i++) {
+            System.out.println();
+            System.out.println("Round " + i + " begins ...\n");
+
+            // Ask user to select difficulty level
+            System.out.println(
+                    "Please Enter the Difficulty Level:\n1 --> Easy [There is No Limit for number of attempts]\n2 --> Hard [There is Limit for number of attempts]");
+            int limits = obj.nextInt();
+
+            // Switch statement to handle different difficulty levels
+            switch (limits) {
+                case 1: {
+                    // Case for easy difficulty, where there is no limit for guesses
+                    System.out.println("Opted for Easy Difficulty.\nHence, there is No Limit to number of attempts\n");
+
+                    // Generate a random number between 1 and 100
+                    int RandomNumber = 1 + rand.nextInt(100);
+                    System.out.println("Random Number has been generated...");
+
+                    // Initialize attempt count
+                    int count = 1;
+                    
+                    // Loop for user guesses
+                    whileloop: while (true) {
+                        // Prompt user for guess
+                        System.out.print("Enter you guess number " + count + ": ");
+                        int guess = obj.nextInt();
+                        
+                        // Provide feedback if guess is higher or lower than the random number
+                        if (guess > RandomNumber) {
+                            System.out.println("The number " + guess
+                                    + " is HIGHER than Generated Number. You have to Guess again...");
+                        } else if (guess < RandomNumber) {
+                            System.out.println("The number " + guess
+                                    + " is LOWER than Generated Number. You have to Guess again...");
+                        } else {
+                            // If the guess is correct, congratulate the player and break the loop
+                            System.out.println(
+                                    "The number " + guess + " is EQUAL to than Generated Number.\nCongrats it took you "
+                                            + count + " attempts.");
+                            break whileloop;
+                        }
+                        count++; // Increment guess count
+                    }
+                    break;
+                }
+                case 2: {
+                    // Case for hard difficulty, where there is a limit of 5 guesses
+                    System.out.println("Opted for Hard Difficulty.\nHence, there is  Limit to number of attempts");
+                    System.out.println(
+                            "The limit is just 5.\nIf you have guessed the number in 5 or less attempts you have won the game.\n Else you will lose the game.\n");
+
+                    // Generate a random number between 1 and 100
+                    int RandomNumber = 1 + rand.nextInt(100);
+                    System.out.println("Random Number has been generated...");
+
+                    // Initialize attempt count
+                    int count = 1;
+                    
+                    // Loop for user guesses with a limit of 5 attempts
+                    whileloop: while (count <= 5) {
+                        // Display remaining guesses
+                        System.out.println("\nNo of guesses remaining : " + (6 - count) + " ...\n");
+                        // Prompt user for guess
+                        System.out.print("Enter you guess number " + count + ": ");
+                        int guess = obj.nextInt();
+                        
+                        // Provide feedback if guess is higher or lower than the random number
+                        if (guess > RandomNumber) {
+                            System.out.println("The number " + guess
+                                    + " is HIGHER than Generated Number. You have to Guess again...");
+                        } else if (guess < RandomNumber) {
+                            System.out.println("The number " + guess
+                                    + " is LOWER than Generated Number. You have to Guess again...");
+                        } else {
+                            // If the guess is correct, congratulate the player and break the loop
+                            System.out.println(
+                                    "The number " + guess + " is EQUAL to than Generated Number.\nCongrats it took you "
+                                            + count + " attempts.");
+                            break whileloop;
+                        }
+                        count++; // Increment guess count
+                    }
+                    
+                    // If player didn't guess within 5 attempts, show the correct number
+                    if (count > 5) {
+                        System.out.println(
+                                "OOPS!! You were not able to guess the number in 5 attempts.\nThe Generated Number was "
+                                        + RandomNumber + "\nBETTER LUCK NEXT TIME\n");
+                    }
+                    break;
+                }
+                default: {
+                    // Case for invalid input in difficulty selection
+                    System.out.println("--- WRONG INPUT ---\n Sorry!!! But this round has been wasted.");
+                    break;
+                }
+            }
+
+            // End of the round message
+            System.out.println("ROUND " + i + " is OVER.");
+        }
+
+        // Final message after all rounds are over
+        System.out.println("\nAll the Rounds are over.\nThank You for Playing the Game.\nHope you enjoyed it.");
+        obj.close(); // Close the scanner object to prevent resource leak
+    }
+}
